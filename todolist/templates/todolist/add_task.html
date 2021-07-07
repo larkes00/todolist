@@ -1,0 +1,19 @@
+{% extends 'todolist/base.html' %}
+{% block content %}
+    <h1>Add task</h1>
+
+    <form action="{% url 'task_create' %}" method="post">
+        {% csrf_token %}
+
+        {% for element in form %}
+            <p>
+                <lable class="form-label" for="{{ element.id_for_label }}">
+                    {{ element.label }}:
+                </lable>
+                {{ element }}
+            </p>
+            <div class="form-error">{{ element.errors }}</div>
+        {% endfor %}
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}
