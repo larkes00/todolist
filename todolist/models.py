@@ -11,7 +11,7 @@ class List(models.Model):
         return self.name
 
 
-class Task(MP_Node):
+class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     completed = models.BooleanField(default=False)

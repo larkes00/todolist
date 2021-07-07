@@ -1,5 +1,10 @@
 {% extends 'todolist/base.html' %}
 
 {% block content %}
-    <h1>Hello</h1>
+    {% for task in tasks %}
+        <ul>
+            <li>{{ task }}</li>
+        </ul>
+    {% endfor %}
+
 {% endblock %}
