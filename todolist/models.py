@@ -13,6 +13,7 @@ class List(models.Model):
 
 class Task(MP_Node):
     title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
     completed = models.BooleanField(default=False)
     list = models.ForeignKey(List, on_delete=models.CASCADE)
 
