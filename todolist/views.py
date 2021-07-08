@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from todolist.forms import AddTaskForm
+from todolist.forms import AddTaskForm, AddListForm
 from .models import *
 
 
@@ -13,12 +13,21 @@ def new_task(request):
     if request.method == "POST":
         form = AddTaskForm(request.POST)
         if form.is_valid():
-            try:
-                Task.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                form.add_error(None, "Ошибка добавления задачи")
+            form.save()
+            return redirect('home')
     else:
         form = AddTaskForm()
 
     return render(request, "todolist/add_task.html", {"form": form})
+
+
+def new_list(request):
+    if request.method == "POST":
+        form = AddListForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AddListForm()
+
+    return render(request, "todolist/add_list.html", {"form": form})
