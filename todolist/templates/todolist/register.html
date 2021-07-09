@@ -1,0 +1,24 @@
+{% extends "todolist/base.html" %}
+{% block content %}
+    <style>
+        .register-form-container {
+            text-align: center;
+            margin: auto;
+        }
+    </style>
+    <div class="register-form-container">
+        <form method="post">
+            {% csrf_token %}
+            {% for f in form %}
+                <p>
+                    <label for="{{ f.id_for_label }}">{{ f.label }}</label><br>
+                    {{ f }}
+                </p>
+
+            {% endfor %}
+
+            <button type="submit">Регитрация</button>
+        </form>
+    </div>
+
+{% endblock %}
