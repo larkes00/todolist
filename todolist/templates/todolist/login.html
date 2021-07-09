@@ -1,6 +1,6 @@
-{% extends "todolist/base.html" %}
+{% extends 'todolist/base.html' %}
 {% block content %}
-    <div class="register-form-container">
+    <div class="login-form-container">
         <form method="post">
             {% csrf_token %}
             {% for f in form %}
@@ -10,7 +10,8 @@
                     {{ f }}
                 <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
-            <button type="submit">Регистрация</button>
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            <button type="submit">Войти</button>
         </form>
     </div>
 {% endblock %}

@@ -1,7 +1,10 @@
+from django.contrib.auth import logout, login
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from todolist.forms import AddTaskForm, RegisterUserForm
+from todolist.forms import AddTaskForm, RegisterUserForm, LoginUserForm
 from .models import *
 
 
@@ -10,9 +13,18 @@ class RegisterUser(CreateView):
     template_name = "todolist/register.html"
     success_url = reverse_lazy("login")
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect("home")
 
-# class LoginUser(CreateView):
-#     template_name = "todolist/login.html"
+
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = "todolist/login.html"
+
+    def get_success_url(self):
+        return reverse_lazy("home")
 
 
 class TaskList(ListView):
@@ -40,6 +52,7 @@ class NewTask(CreateView):
     form_class = AddTaskForm
     template_name = "todolist/add_task.html"
     success_url = reverse_lazy("home")
+
 
 # class ListList(ListView):
 #     model = List
@@ -72,3 +85,8 @@ class NewTask(CreateView):
 #         form = AddListForm()
 #
 #     return render(request, "todolist/add_list.html", {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")

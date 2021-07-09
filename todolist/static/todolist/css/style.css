@@ -1,4 +1,4 @@
-.register-form-container {
+.register-form-container, .login-form-container {
     text-align: center;
     margin: auto;
 }

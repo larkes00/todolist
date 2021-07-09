@@ -7,6 +7,15 @@
     <link type="text/css" href="{% static 'todolist/css/style.css' %}" rel="stylesheet"/>
 </head>
 <body>
+<div class="top-navbar">
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Выход</a>
+    {% else %}
+        <a href="{% url 'login' %}">Вход</a>
+        <a href="{% url 'register' %}">Регистрация</a>
+    {% endif %}
+
+</div>
 {% block content %}{% endblock %}
 </body>
 </html>
