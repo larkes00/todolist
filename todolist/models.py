@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from treebeard.mp_tree import MP_Node
 
 
@@ -10,6 +11,9 @@ class List(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('list', kwargs={"pk": self.pk})
 
 
 class Task(models.Model):
