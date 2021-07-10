@@ -1,4 +1,5 @@
 from django.contrib.auth import logout, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -24,7 +25,16 @@ class LoginUser(LoginView):
     template_name = "todolist/login.html"
 
     def get_success_url(self):
-        return reverse_lazy("home")
+        next_url = self.request.GET.get('next', None)
+        if next_url:
+            return next_url
+
+        return reverse('home')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")
 
 
 class TaskList(ListView):
@@ -42,51 +52,25 @@ class TaskList(ListView):
         return Task.objects.filter(completed=False)
 
 
+class UserLists(ListView):
+    model = List
+    template_name = "todolist/index.html"
+    context_object_name = "lists"
+
+    def get_queryset(self):
+        return List.objects.filter(owner=self.request.user.pk)
+
+
 class ShowList(DetailView):
     model = List
     template_name = "todolist/task.html"
-    context_object_name = "tasks"
+    context_object_name = "task"
+
+    # def get_queryset(self):
+    # return Task.objects.filter(list=self.pk)
 
 
 class NewTask(CreateView):
     form_class = AddTaskForm
     template_name = "todolist/add_task.html"
     success_url = reverse_lazy("home")
-
-
-# class ListList(ListView):
-#     model = List
-#     template_name = "todolist/index.html"
-#     context_object_name = "list"
-#
-#     def get_queryset(self):
-#         return List.objects.filter(name__slug=self.kwargs["list_slug"])
-
-
-# def new_task(request):
-#     if request.method == "POST":
-#         form = AddTaskForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home')
-#     else:
-#         form = AddTaskForm()
-#
-#     return render(request, "todolist/add_task.html", {"form": form})
-#
-#
-# def new_list(request):
-#     if request.method == "POST":
-#         form = AddListForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home')
-#     else:
-#         form = AddListForm()
-#
-#     return render(request, "todolist/add_list.html", {"form": form})
-
-
-def user_logout(request):
-    logout(request)
-    return redirect("login")
