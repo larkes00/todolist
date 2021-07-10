@@ -1,16 +1,21 @@
 {% extends 'todolist/base.html' %}
 
 {% block content %}
-    {% for task in tasks %}
-        <ul>
-            <li>{{ task }}</li>
-        </ul>
-    {% endfor %}
-    {{ something }}
-    {% for m in menu %}
-        {{ m.x }}
+    <div class="main-container">
+        <div class="left-lists">
+            {% for list in lists %}
+                <ul>
+                    <li>
+                        <a href="{{ list.get_absolute_url }}">{{ list }}</a>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="center-tasks">
 
-    {% endfor %}
+        </div>
+        <div class="right-description">
 
-
+        </div>
+    </div>
 {% endblock %}

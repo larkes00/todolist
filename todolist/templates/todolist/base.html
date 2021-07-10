@@ -7,15 +7,19 @@
     <link type="text/css" href="{% static 'todolist/css/style.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<div class="top-navbar">
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Выход</a>
-    {% else %}
-        <a href="{% url 'login' %}">Вход</a>
-        <a href="{% url 'register' %}">Регистрация</a>
-    {% endif %}
-
-</div>
+<hearder>
+    <div class="top-navbar">
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Выход</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Вход</a></li>
+            <li><a href="{% url 'register' %}">Регистрация</a></li>
+        {% endif %}
+        </ul>
+    </div>
+</hearder>
 {% block content %}{% endblock %}
+<script async src="{% static 'todolist/js/main.js' %}"></script>
 </body>
 </html>

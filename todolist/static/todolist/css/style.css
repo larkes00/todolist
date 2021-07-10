@@ -2,3 +2,50 @@
     text-align: center;
     margin: auto;
 }
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-lists {
+    background: antiquewhite;
+    width: 20vw;
+    height: 43vw;
+}
+
+.center-tasks {
+    background: red;
+    width: 54vw;
+    height: 43vw;
+}
+
+.right-description {
+    background: aqua;
+    width: 25vw;
+    height: 43vw;
+}
+
+.top-navbar {
+    width: 100vw;
+    height: 3vw;
+}
+.top-navbar > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-navbar > ul > li {
+    float: left;
+}
+
+.top-navbar > ul > li > a {
+    display: inline-block;
+    padding: 8px;
+}
+
+.top-navbar > ul > li > a:hover {
+    background-color: beige;
+}
+
