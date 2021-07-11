@@ -12,6 +12,7 @@
     width: 99vw;
     height: 3vw;
 }
+
 .top-navbar > ul {
     list-style-type: none;
     margin: 0;
@@ -30,7 +31,16 @@
 .top-navbar > ul > li > a:hover {
     background-color: beige;
 }
-.center-tasks > ul > li {
+
+li {
     list-style-type: none;
 }
 
+a {
+    color: #000 !important;
+    text-decoration: none
+}
+
+.left-side-bar > h3 {
+    text-align: center;
+}

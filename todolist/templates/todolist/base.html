@@ -11,22 +11,30 @@
     <div class="top-navbar">
         <ul>
             {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Выход</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <li><a href="{% url 'login' %}">Вход</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Registration</a></li>
             {% endif %}
         </ul>
     </div>
 </hearder>
 <div class="main-container">
-    <div class="left-side-bar">
-        {% for l in lists %}
+    {% block left-side-bar %}
+        <div class="left-side-bar">
+            <h3>Lists</h3>
+            {% for l in lists %}
+                <ul>
+                    <li><a href="{{ l.get_absolute_url }}">{{ l|truncatechars:20 }}</a></li>
+                </ul>
+            {% endfor %}
             <ul>
-                <li><a href="{{ l.get_absolute_url }}">{{ l }}</a></li>
+                <li>
+                    <h4><a href="{% url 'create_list' %}">Create list</a></h4>
+                </li>
             </ul>
-        {% endfor %}
-    </div>
+        </div>
+    {% endblock %}
     {% block content %}{% endblock %}
 </div>
 <script async src="{% static 'todolist/js/main.js' %}"></script>

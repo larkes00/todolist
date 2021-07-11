@@ -1,0 +1,17 @@
+<h1>Create list</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for element in form %}
+        <p>
+            <lable class="form-label" for="{{ element.id_for_label }}">
+                {{ element.label }}:
+            </lable>
+            {{ element }}
+        </p>
+        <div class="form-error">{{ element.errors }}</div>
+    {% endfor %}
+    <button type="submit">Добавить</button>
+</form>

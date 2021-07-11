@@ -5,15 +5,16 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from todolist.forms import RegisterUserForm, LoginUserForm
+from todolist.forms import RegisterUserForm, LoginUserForm, CreateListForm
 from .models import *
 from .utils import DataMixin
 
 
-class TaskList(DataMixin, ListView):
+class TaskList(LoginRequiredMixin, DataMixin, ListView):
     model = Task
     template_name = "todolist/index.html"
     context_object_name = "tasks"
+    login_url = "login"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,19 +25,20 @@ class TaskList(DataMixin, ListView):
         return Task.objects.filter(completed=False)
 
 
-class UserLists(DataMixin, ListView):
+class UserLists(LoginRequiredMixin, DataMixin, ListView):
     template_name = "todolist/index.html"
     context_object_name = "lists"
+    login_url = "login"
 
     def get_queryset(self):
         return List.objects.filter(owner=self.request.user.pk)
 
 
-class ListTasks(DataMixin, ListView):
+class ListTasks(LoginRequiredMixin, DataMixin, ListView):
     model = Task
     context_object_name = "tasks"
     template_name = "todolist/task.html"
-    allow_empty = False
+    login_url = "login"
 
     def get_queryset(self):
         return Task.objects.filter(list=self.kwargs["pk"])
@@ -47,18 +49,14 @@ class ListTasks(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class ShowList(DataMixin, DetailView):
-    model = List
-    template_name = "todolist/task.html"
-    context_object_name = "task"
+class NewUserList(LoginRequiredMixin, CreateView):
+    form_class = CreateListForm
+    template_name = "todolist/new_list.html"
+    success_url = reverse_lazy("home")
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(user=self.request.user.id)
-        return dict(list(context.items()) + list(c_def.items()))
-
-    # def get_queryset(self):
-    # return Task.objects.filter(list=self.pk)
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 
 class RegisterUser(CreateView):

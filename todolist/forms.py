@@ -25,7 +25,7 @@ class AddTaskForm(forms.ModelForm):
         return title
 
 
-class AddListForm(forms.ModelForm):
+class CreateListForm(forms.ModelForm):
     class Meta:
         model = List
         fields = ["name", "image"]
@@ -50,4 +50,3 @@ class RegisterUserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "login-form"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "login-form"}))
- 
