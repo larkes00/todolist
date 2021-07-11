@@ -8,26 +8,8 @@
     flex-direction: row;
 }
 
-.left-lists {
-    background: antiquewhite;
-    width: 20vw;
-    height: 43vw;
-}
-
-.center-tasks {
-    background: red;
-    width: 54vw;
-    height: 43vw;
-}
-
-.right-description {
-    background: aqua;
-    width: 25vw;
-    height: 43vw;
-}
-
 .top-navbar {
-    width: 100vw;
+    width: 99vw;
     height: 3vw;
 }
 .top-navbar > ul {
@@ -47,5 +29,8 @@
 
 .top-navbar > ul > li > a:hover {
     background-color: beige;
+}
+.center-tasks > ul > li {
+    list-style-type: none;
 }
 

@@ -1,5 +1,10 @@
 {% extends "todolist/base.html" %}
 {% block content %}
-    {{ tasks }}
-
+    <div class="center-tasks">
+        {% for task in tasks %}
+            <ul>
+                <li><a href="{{ task.get_absolute_url }}">{{ task|truncatechars:50 }}</a></li>
+            </ul>
+        {% endfor %}
+    </div>
 {% endblock %}

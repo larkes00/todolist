@@ -10,16 +10,25 @@
 <hearder>
     <div class="top-navbar">
         <ul>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}">Выход</a></li>
-        {% else %}
-            <li><a href="{% url 'login' %}">Вход</a></li>
-            <li><a href="{% url 'register' %}">Регистрация</a></li>
-        {% endif %}
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Выход</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Вход</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+            {% endif %}
         </ul>
     </div>
 </hearder>
-{% block content %}{% endblock %}
+<div class="main-container">
+    <div class="left-side-bar">
+        {% for l in lists %}
+            <ul>
+                <li><a href="{{ l.get_absolute_url }}">{{ l }}</a></li>
+            </ul>
+        {% endfor %}
+    </div>
+    {% block content %}{% endblock %}
+</div>
 <script async src="{% static 'todolist/js/main.js' %}"></script>
 </body>
 </html>
