@@ -5,8 +5,60 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from todolist.forms import AddTaskForm, RegisterUserForm, LoginUserForm
+from todolist.forms import RegisterUserForm, LoginUserForm
 from .models import *
+from .utils import DataMixin
+
+
+class TaskList(DataMixin, ListView):
+    model = Task
+    template_name = "todolist/index.html"
+    context_object_name = "tasks"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Task.objects.filter(completed=False)
+
+
+class UserLists(DataMixin, ListView):
+    template_name = "todolist/index.html"
+    context_object_name = "lists"
+
+    def get_queryset(self):
+        return List.objects.filter(owner=self.request.user.pk)
+
+
+class ListTasks(DataMixin, ListView):
+    model = Task
+    context_object_name = "tasks"
+    template_name = "todolist/task.html"
+    allow_empty = False
+
+    def get_queryset(self):
+        return Task.objects.filter(list=self.kwargs["pk"])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class ShowList(DataMixin, DetailView):
+    model = List
+    template_name = "todolist/task.html"
+    context_object_name = "task"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
+
+    # def get_queryset(self):
+    # return Task.objects.filter(list=self.pk)
 
 
 class RegisterUser(CreateView):
@@ -35,42 +87,3 @@ class LoginUser(LoginView):
 def user_logout(request):
     logout(request)
     return redirect("login")
-
-
-class TaskList(ListView):
-    model = Task
-    template_name = "todolist/index.html"
-    context_object_name = "tasks"
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["menu"] = [{"x": 1}, {"x": 2}]
-        context["something"] = 'Information'
-        return context
-
-    def get_queryset(self):
-        return Task.objects.filter(completed=False)
-
-
-class UserLists(ListView):
-    model = List
-    template_name = "todolist/index.html"
-    context_object_name = "lists"
-
-    def get_queryset(self):
-        return List.objects.filter(owner=self.request.user.pk)
-
-
-class ShowList(DetailView):
-    model = List
-    template_name = "todolist/task.html"
-    context_object_name = "task"
-
-    # def get_queryset(self):
-    # return Task.objects.filter(list=self.pk)
-
-
-class NewTask(CreateView):
-    form_class = AddTaskForm
-    template_name = "todolist/add_task.html"
-    success_url = reverse_lazy("home")
