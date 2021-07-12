@@ -25,6 +25,18 @@ class TaskList(LoginRequiredMixin, DataMixin, ListView):
         return Task.objects.filter(completed=False)
 
 
+class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
+    model = Task
+    template_name = "todolist/task_info.html"
+    context_object_name = "task"
+    login_url = "login"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 class UserLists(LoginRequiredMixin, DataMixin, ListView):
     template_name = "todolist/index.html"
     context_object_name = "lists"
