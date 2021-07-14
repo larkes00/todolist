@@ -14,7 +14,6 @@ class TaskList(LoginRequiredMixin, DataMixin, ListView):
     model = Task
     template_name = "todolist/index.html"
     context_object_name = "tasks"
-    login_url = "login"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,7 +28,6 @@ class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
     model = Task
     template_name = "todolist/task_info.html"
     context_object_name = "task"
-    login_url = "login"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,7 +38,6 @@ class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
 class UserLists(LoginRequiredMixin, DataMixin, ListView):
     template_name = "todolist/index.html"
     context_object_name = "lists"
-    login_url = "login"
 
     def get_queryset(self):
         return List.objects.filter(owner=self.request.user.pk)
@@ -50,7 +47,6 @@ class ListTasks(LoginRequiredMixin, DataMixin, ListView):
     model = Task
     context_object_name = "tasks"
     template_name = "todolist/task.html"
-    login_url = "login"
 
     def get_queryset(self):
         return Task.objects.filter(list=self.kwargs["pk"])
