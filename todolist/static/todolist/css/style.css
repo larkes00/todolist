@@ -44,3 +44,6 @@ a {
 .left-side-bar > h3 {
     text-align: center;
 }
+.right-description > p {
+    word-break: break-all;
+}
