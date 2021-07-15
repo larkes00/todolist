@@ -1,0 +1,9 @@
+{% extends 'todolist/base.html' %}
+{% block left-side-bar %}
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block info %}
+    <h3>List name: {{ list.name }}</h3>
+    <h4>List image: <br><img src="{{ list.image.url }}" width="100px" height="100px"></h4>
+{% endblock %}

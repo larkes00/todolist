@@ -58,6 +58,12 @@ class Tasks(LoginRequiredMixin, DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class ShowList(LoginRequiredMixin, DetailView):
+    model = List
+    context_object_name = "list"
+    template_name = "todolist/list_info.html"
+
+
 class NewUserList(LoginRequiredMixin, CreateView):
     form_class = CreateListForm
     template_name = "todolist/new_list.html"
