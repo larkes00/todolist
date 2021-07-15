@@ -44,7 +44,7 @@ class UserLists(LoginRequiredMixin, DataMixin, ListView):
         return List.objects.filter(owner=self.request.user.pk)
 
 
-class ListTasks(LoginRequiredMixin, DataMixin, ListView):
+class Tasks(LoginRequiredMixin, DataMixin, ListView):
     model = Task
     context_object_name = "tasks"
     template_name = "todolist/list_tasks.html"
