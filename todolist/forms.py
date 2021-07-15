@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from .models import *
 
 
-class AddTaskForm(forms.ModelForm):
+class CreateTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["list"].empty_label = "Список не выбран"
@@ -16,13 +16,6 @@ class AddTaskForm(forms.ModelForm):
         widgets = {
             "description": forms.Textarea(attrs={"cols": 40, "rows": 10})
         }
-
-    def clean_title(self):
-        title = self.cleaned_data["title"]
-        if len(title) > 255:
-            raise ValidationError("Длина превышает 255 символов")
-
-        return title
 
 
 class CreateListForm(forms.ModelForm):
