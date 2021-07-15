@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from todolist.forms import RegisterUserForm, LoginUserForm, CreateListForm
+from todolist.forms import RegisterUserForm, LoginUserForm, CreateListForm, CreateTaskForm
 from .models import *
 from .utils import DataMixin
 
@@ -72,6 +72,12 @@ class NewUserList(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+class CreateTask(LoginRequiredMixin, CreateView):
+    form_class = CreateTaskForm
+    template_name = "todolist/new_task.html"
+    success_url = reverse_lazy("home")
 
 
 class RegisterUser(CreateView):

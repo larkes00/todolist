@@ -11,6 +11,7 @@
     <div class="top-navbar">
         <ul>
             {% if request.user.is_authenticated %}
+                <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
@@ -25,7 +26,11 @@
             <h3>Lists</h3>
             {% for l in lists %}
                 <ul>
-                    <li><a href="{{ l.get_absolute_url }}">{{ l|truncatechars:20 }}</a></li>
+                    <li>
+                        <b><a href="{{ l.get_absolute_url }}">{{ l|truncatechars:20 }}</a></b>
+                        <a href="{% url 'list_info' l.pk %}" id="Info">| List info</a>
+                    </li>
+                    <li></li>
                 </ul>
             {% endfor %}
             <ul>
