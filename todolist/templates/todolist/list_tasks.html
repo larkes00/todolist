@@ -1,6 +1,7 @@
 {% extends "todolist/base.html" %}
 {% block content %}
     <div class="center-tasks">
+        <a href="{% url 'task_form' %}"><h3>Create task</h3></a>
         {% if tasks.all %}
             {% for task in tasks %}
                 <ul>
