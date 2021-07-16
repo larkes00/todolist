@@ -8,6 +8,7 @@
                     <li>
                         <a href="{{ task.get_absolute_url }}">{{ task|truncatechars:50 }}</a>
                         <a href="{% url 'task_delete' task.pk %}">| Delete task</a>
+                        <a href="{% url 'task_update' task.pk %}">| Update task</a>
                     </li>
                 </ul>
             {% endfor %}

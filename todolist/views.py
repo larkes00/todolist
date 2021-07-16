@@ -76,7 +76,7 @@ class NewUserList(LoginRequiredMixin, CreateView):
 
 class CreateTask(LoginRequiredMixin, CreateView):
     form_class = CreateTaskForm
-    template_name = "todolist/list_form.html"
+    template_name = "todolist/task_form.html"
     success_url = reverse_lazy("home")
 
 
@@ -95,6 +95,12 @@ class DeleteList(LoginRequiredMixin, DeleteView):
 class UpdateList(LoginRequiredMixin, UpdateView):
     model = List
     form_class = CreateListForm
+    success_url = reverse_lazy("home")
+
+
+class UpdateTask(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = CreateTaskForm
     success_url = reverse_lazy("home")
 
 
