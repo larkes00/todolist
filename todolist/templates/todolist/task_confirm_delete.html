@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    <p>Delete this task? {{ task }}</p>
+    <button type="submit">Submit</button>
+</form>

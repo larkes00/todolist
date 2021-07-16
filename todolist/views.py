@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 
 from todolist.forms import RegisterUserForm, LoginUserForm, CreateListForm, CreateTaskForm
 from .models import *
@@ -77,6 +77,18 @@ class NewUserList(LoginRequiredMixin, CreateView):
 class CreateTask(LoginRequiredMixin, CreateView):
     form_class = CreateTaskForm
     template_name = "todolist/new_task.html"
+    success_url = reverse_lazy("home")
+
+
+class DeleteTask(LoginRequiredMixin, DeleteView):
+    model = Task
+    context_object_name = "task"
+    success_url = reverse_lazy("home")
+
+
+class DeleteList(LoginRequiredMixin, DeleteView):
+    model = List
+    context_object_name = "list"
     success_url = reverse_lazy("home")
 
 

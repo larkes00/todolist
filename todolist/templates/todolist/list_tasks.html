@@ -5,7 +5,10 @@
         {% if tasks.all %}
             {% for task in tasks %}
                 <ul>
-                    <li><a href="{{ task.get_absolute_url }}">{{ task|truncatechars:50 }}</a></li>
+                    <li>
+                        <a href="{{ task.get_absolute_url }}">{{ task|truncatechars:50 }}</a>
+                        <a href="{% url 'task_delete' task.id %}">| Delete this task</a>
+                    </li>
                 </ul>
             {% endfor %}
         {% endif %}
