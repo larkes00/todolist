@@ -7,7 +7,7 @@
                 <ul>
                     <li>
                         <a href="{{ task.get_absolute_url }}">{{ task|truncatechars:50 }}</a>
-                        <a href="{% url 'task_delete' task.id %}">| Delete this task</a>
+                        <a href="{% url 'task_delete' task.pk %}">| Delete task</a>
                     </li>
                 </ul>
             {% endfor %}

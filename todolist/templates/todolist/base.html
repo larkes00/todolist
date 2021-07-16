@@ -29,6 +29,7 @@
                     <li>
                         <b><a href="{{ l.get_absolute_url }}">{{ l|truncatechars:20 }}</a></b>
                         <a href="{% url 'list_info' l.pk %}" id="Info">| List info</a>
+                        <a href="{% url 'list_delete' l.pk %}" id="Info">| Delete list</a>
                     </li>
                     <li></li>
                 </ul>
