@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -8,20 +9,6 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from todolist.forms import RegisterUserForm, LoginUserForm, CreateListForm, CreateTaskForm
 from .models import *
 from .utils import DataMixin
-
-
-class TaskList(LoginRequiredMixin, DataMixin, ListView):
-    model = Task
-    template_name = "todolist/index.html"
-    context_object_name = "tasks"
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(user=self.request.user.id)
-        return dict(list(context.items()) + list(c_def.items()))
-
-    def get_queryset(self):
-        return Task.objects.filter(completed=False)
 
 
 class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
@@ -34,6 +21,13 @@ class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
         context["tasks"] = Task.objects.filter(list=context["task"].list.pk)
         c_def = self.get_user_context(user=self.request.user.id)
         return dict(list(context.items()) + list(c_def.items()))
+
+    def get_object(self, queryset=None):
+        obj = super(ShowTask, self).get_object(queryset)
+        if not obj.list.owner.id == self.request.user.pk:
+            raise PermissionDenied
+
+        return obj
 
 
 class UserLists(LoginRequiredMixin, DataMixin, ListView):
