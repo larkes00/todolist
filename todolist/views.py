@@ -21,15 +21,15 @@ class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
         context["tasks"] = Task.objects.filter(list=context["task"].list.pk)
         c_def = self.get_user_context(user=self.request.user.id)
         return dict(list(context.items()) + list(c_def.items()))
-#
-#     def get_object(self, queryset=None):
-#         obj = super(ShowTask, self).get_object(queryset)
-#         if not obj.list.owner.id == self.request.user.pk:
-#             raise PermissionDenied
-#
-#         return obj
-#
-#
+
+    def get_object(self, queryset=None):
+        obj = super(ShowTask, self).get_object(queryset)
+        if not obj.list.owner.id == self.request.user.pk:
+            raise PermissionDenied
+
+        return obj
+
+
 class UserLists(LoginRequiredMixin, DataMixin, ListView):
     template_name = "todolist/index.html"
     context_object_name = "lists"

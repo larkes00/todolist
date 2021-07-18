@@ -21,7 +21,7 @@ class CreateTaskForm(forms.ModelForm):
 class CreateListForm(forms.ModelForm):
     class Meta:
         model = List
-        fields = ["name", "image"]
+        fields = ["name"]
 
 
 class RegisterUserForm(UserCreationForm):

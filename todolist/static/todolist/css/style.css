@@ -19,7 +19,6 @@ header > ul > li > a {
 
 .main-container {
     display: flex;
-    flex: 0 0 100vw;
     padding: 10px;
 }
 
