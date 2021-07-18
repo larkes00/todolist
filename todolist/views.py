@@ -57,6 +57,13 @@ class ShowList(LoginRequiredMixin, DetailView):
     context_object_name = "list"
     template_name = "todolist/list_info.html"
 
+    def get_object(self, queryset=None):
+        obj = super(ShowList, self).get_object(queryset)
+        if not obj.list.owner.id == self.request.user.pk:
+            raise PermissionDenied
+
+        return obj
+
 
 class NewUserList(LoginRequiredMixin, CreateView):
     form_class = CreateListForm
