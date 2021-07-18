@@ -65,22 +65,22 @@ class ShowList(LoginRequiredMixin, DetailView):
         return obj
 
 
-# class NewUserList(LoginRequiredMixin, CreateView):
-#     form_class = CreateListForm
-#     template_name = "todolist/list_form.html"
-#     success_url = reverse_lazy("home")
-#
-#     def form_valid(self, form):
-#         form.instance.owner = self.request.user
-#         return super().form_valid(form)
-#
-#
-# class CreateTask(LoginRequiredMixin, CreateView):
-#     form_class = CreateTaskForm
-#     template_name = "todolist/task_form.html"
-#     success_url = reverse_lazy("home")
-#
-#
+class NewUserList(LoginRequiredMixin, CreateView):
+    form_class = CreateListForm
+    template_name = "todolist/list_form.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class CreateTask(LoginRequiredMixin, CreateView):
+    form_class = CreateTaskForm
+    template_name = "todolist/task_form.html"
+    success_url = reverse_lazy("home")
+
+
 class DeleteTask(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = "task"

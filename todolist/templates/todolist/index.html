@@ -3,6 +3,9 @@
 {% block content %}
     <div class="main-container">
         <div class="main-left-block">
+            <h3>
+                <a href="{% url 'list_create' %}">Create list</a>
+            </h3>
             {% block lists %}
                 {% for list in lists %}
                     <p>
@@ -15,7 +18,11 @@
             {% endblock %}
         </div>
         <div class="main-center-block">
-            {% block tasks %}{% endblock %}
+            {% block tasks %}
+                <h3>
+                    <a href="{% url 'task_create' %}">Create task</a>
+                </h3>
+            {% endblock %}
         </div>
         <div class="main-right-block">
             {% block task_description %}{% endblock %}

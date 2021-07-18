@@ -1,10 +1,21 @@
 {% extends 'todolist/index.html' %}
 
 {% block tasks %}
+    <h3>
+        <a href="{% url 'task_create' %}">Create task</a>
+    </h3>
     {% for task in tasks %}
-        <a href="{% url 'task_info' task.pk %}">{{ task|truncatechars:20 }}</a>
-        <a href="{% url 'task_update' task.pk %}">Update</a>
-        <a href="{% url 'task_delete' task.pk %}">Delete</a>
+        <p>
+            <a href="{% url 'task_info' task.pk %}">
+                {% if task.completed %}
+                    <s>{{ task|truncatechars:20 }}</s>
+                {% else %}
+                    {{ task|truncatechars:20 }}
+                {% endif %}
+            </a>
+            <a href="{% url 'task_update' task.pk %}">Update</a>
+            <a href="{% url 'task_delete' task.pk %}">Delete</a>
+        </p>
     {% endfor %}
 {% endblock %}
 {% block task_description %}{% endblock %}

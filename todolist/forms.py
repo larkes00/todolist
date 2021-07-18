@@ -12,7 +12,7 @@ class CreateTaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ["title", "description", "list"]
+        fields = ["title", "description", "completed", "list"]
         widgets = {
             "description": forms.Textarea(attrs={"cols": 40, "rows": 10})
         }
