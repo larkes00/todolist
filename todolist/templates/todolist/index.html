@@ -1,2 +1,10 @@
 {% extends 'todolist/base.html' %}
 
+{% block content %}
+    {% for list in lists %}
+        <p>
+            <a href="{% url 'tasks' list.pk %}">{{ list|truncatechars:20 }}</a>
+        </p>
+    {% endfor %}
+
+{% endblock %}

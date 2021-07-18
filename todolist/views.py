@@ -36,22 +36,22 @@ class UserLists(LoginRequiredMixin, DataMixin, ListView):
 
     def get_queryset(self):
         return List.objects.filter(owner=self.request.user.pk)
-#
-#
-# class Tasks(LoginRequiredMixin, DataMixin, ListView):
-#     model = Task
-#     context_object_name = "tasks"
-#     template_name = "todolist/list_tasks.html"
-#
-#     def get_queryset(self):
-#         return Task.objects.filter(list=self.kwargs["pk"])
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         c_def = self.get_user_context(user=self.request.user.id)
-#         return dict(list(context.items()) + list(c_def.items()))
-#
-#
+
+
+class Tasks(LoginRequiredMixin, DataMixin, ListView):
+    model = Task
+    context_object_name = "tasks"
+    template_name = "todolist/tasks_list.html"
+
+    def get_queryset(self):
+        return Task.objects.filter(list=self.kwargs["pk"])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 # class ShowList(LoginRequiredMixin, DetailView):
 #     model = List
 #     context_object_name = "list"
