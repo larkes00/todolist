@@ -7,45 +7,21 @@
     <link type="text/css" href="{% static 'todolist/css/style.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<hearder>
-    <div class="top-navbar">
-        <ul>
-            {% if request.user.is_authenticated %}
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Registration</a></li>
-            {% endif %}
-        </ul>
-    </div>
-</hearder>
-<div class="main-container">
-    {% block left-side-bar %}
-        <div class="left-side-bar">
-            <h3>Lists</h3>
-            {% for l in lists %}
-                <ul>
-                    <li>
-                        <b><a href="{{ l.get_absolute_url }}">{{ l|truncatechars:20 }}</a></b>
-                        <a href="{% url 'list_info' l.pk %}" id="Info">| List info</a>
-                        <a href="{% url 'list_update' l.pk %}" id="Info">| Update list</a>
-                        <a href="{% url 'list_delete' l.pk %}" id="Info">| Delete list</a>
-                    </li>
-                    <li></li>
-                </ul>
-            {% endfor %}
-            <ul>
-                <li>
-                    <h4><a href="{% url 'create_list' %}">Create list</a></h4>
-                </li>
-            </ul>
-        </div>
-    {% endblock %}
-    {% block content %}{% endblock %}
-</div>
-{% block info %}
-{% endblock %}
-<script async src="{% static 'todolist/js/main.js' %}"></script>
+<header>
+    <ul>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'register' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+</header>
 </body>
 </html>
