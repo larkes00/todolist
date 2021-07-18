@@ -7,7 +7,9 @@
                 {% for list in lists %}
                     <p>
                         <a href="{% url 'tasks' list.pk %}">{{ list|truncatechars:20 }}</a>
-                        <button>Delete</button>
+                        <a href="{% url 'list_info' list.pk %}">Show detail</a>
+                        <a href="{% url 'list_update' list.pk %}">Update</a>
+                        <a href="{% url 'list_delete' list.pk %}">Delete</a>
                     </p>
                 {% endfor %}
             {% endblock %}

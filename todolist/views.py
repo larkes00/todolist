@@ -52,19 +52,19 @@ class Tasks(LoginRequiredMixin, DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-# class ShowList(LoginRequiredMixin, DetailView):
-#     model = List
-#     context_object_name = "list"
-#     template_name = "todolist/list_info.html"
-#
-#     def get_object(self, queryset=None):
-#         obj = super(ShowList, self).get_object(queryset)
-#         if not obj.list.owner.id == self.request.user.pk:
-#             raise PermissionDenied
-#
-#         return obj
-#
-#
+class ShowList(LoginRequiredMixin, DetailView):
+    model = List
+    context_object_name = "list"
+    template_name = "todolist/list_info.html"
+
+    def get_object(self, queryset=None):
+        obj = super(ShowList, self).get_object(queryset)
+        if not obj.owner.id == self.request.user.pk:
+            raise PermissionDenied
+
+        return obj
+
+
 # class NewUserList(LoginRequiredMixin, CreateView):
 #     form_class = CreateListForm
 #     template_name = "todolist/list_form.html"
@@ -81,28 +81,28 @@ class Tasks(LoginRequiredMixin, DataMixin, ListView):
 #     success_url = reverse_lazy("home")
 #
 #
-# class DeleteTask(LoginRequiredMixin, DeleteView):
-#     model = Task
-#     context_object_name = "task"
-#     success_url = reverse_lazy("home")
-#
-#
-# class DeleteList(LoginRequiredMixin, DeleteView):
-#     model = List
-#     context_object_name = "list"
-#     success_url = reverse_lazy("home")
-#
-#
-# class UpdateList(LoginRequiredMixin, UpdateView):
-#     model = List
-#     form_class = CreateListForm
-#     success_url = reverse_lazy("home")
-#
-#
-# class UpdateTask(LoginRequiredMixin, UpdateView):
-#     model = Task
-#     form_class = CreateTaskForm
-#     success_url = reverse_lazy("home")
+class DeleteTask(LoginRequiredMixin, DeleteView):
+    model = Task
+    context_object_name = "task"
+    success_url = reverse_lazy("home")
+
+
+class DeleteList(LoginRequiredMixin, DeleteView):
+    model = List
+    context_object_name = "list"
+    success_url = reverse_lazy("home")
+
+
+class UpdateList(LoginRequiredMixin, UpdateView):
+    model = List
+    form_class = CreateListForm
+    success_url = reverse_lazy("home")
+
+
+class UpdateTask(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = CreateTaskForm
+    success_url = reverse_lazy("home")
 
 
 class RegisterUser(CreateView):
