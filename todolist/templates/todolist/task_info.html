@@ -1,0 +1,10 @@
+{% extends 'todolist/tasks_list.html' %}
+{% block task_description %}
+    <h3>Task: {{ task.title }}</h3>
+    <p>Description: {{ task.description }}</p>
+    {% if task.completed %}
+        <p>Status: completed</p>
+    {% else %}
+        <p>Status: uncompleted</p>
+    {% endif %}
+{% endblock %}

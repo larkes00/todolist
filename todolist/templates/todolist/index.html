@@ -2,19 +2,20 @@
 
 {% block content %}
     <div class="main-container">
-        <div class="lists-left-block">
+        <div class="main-left-block">
             {% block lists %}
                 {% for list in lists %}
                     <p>
                         <a href="{% url 'tasks' list.pk %}">{{ list|truncatechars:20 }}</a>
+                        <button>Delete</button>
                     </p>
                 {% endfor %}
             {% endblock %}
         </div>
-        <div class="tasks-main-block">
+        <div class="main-center-block">
             {% block tasks %}{% endblock %}
         </div>
-        <div class="right-description-block">
+        <div class="main-right-block">
             {% block task_description %}{% endblock %}
         </div>
     </div>

@@ -13,10 +13,17 @@ header > ul > li > a {
     color: #000000;
 }
 
-.login-form-container {
+.login-form-container, .register-form-container {
     text-align: center;
 }
 
-.register-form-container {
-    text-align: center;
+.main-container {
+    display: flex;
+    flex: 0 0 100vw;
+    padding: 10px;
+}
+
+.main-left-block, .main-center-block, .main-right-block {
+    padding: 10px;
+    flex: 0 0 33vw;
 }

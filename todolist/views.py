@@ -11,16 +11,16 @@ from .models import *
 from .utils import DataMixin
 
 
-# class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
-#     model = Task
-#     template_name = "todolist/task_info.html"
-#     context_object_name = "task"
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["tasks"] = Task.objects.filter(list=context["task"].list.pk)
-#         c_def = self.get_user_context(user=self.request.user.id)
-#         return dict(list(context.items()) + list(c_def.items()))
+class ShowTask(LoginRequiredMixin, DataMixin, DetailView):
+    model = Task
+    template_name = "todolist/task_info.html"
+    context_object_name = "task"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tasks"] = Task.objects.filter(list=context["task"].list.pk)
+        c_def = self.get_user_context(user=self.request.user.id)
+        return dict(list(context.items()) + list(c_def.items()))
 #
 #     def get_object(self, queryset=None):
 #         obj = super(ShowTask, self).get_object(queryset)

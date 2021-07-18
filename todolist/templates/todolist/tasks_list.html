@@ -2,6 +2,8 @@
 
 {% block tasks %}
     {% for task in tasks %}
-        {{ task }}
+        <a href="{% url 'task_info' task.pk %}">{{ task|truncatechars:20 }}</a>
+        <button>Delete</button>
     {% endfor %}
 {% endblock %}
+{% block task_description %}{% endblock %}
