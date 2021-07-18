@@ -1,10 +1,21 @@
 {% extends 'todolist/base.html' %}
 
 {% block content %}
-    {% for list in lists %}
-        <p>
-            <a href="{% url 'tasks' list.pk %}">{{ list|truncatechars:20 }}</a>
-        </p>
-    {% endfor %}
-
+    <div class="main-container">
+        <div class="lists-left-block">
+            {% block lists %}
+                {% for list in lists %}
+                    <p>
+                        <a href="{% url 'tasks' list.pk %}">{{ list|truncatechars:20 }}</a>
+                    </p>
+                {% endfor %}
+            {% endblock %}
+        </div>
+        <div class="tasks-main-block">
+            {% block tasks %}{% endblock %}
+        </div>
+        <div class="right-description-block">
+            {% block task_description %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}

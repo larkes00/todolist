@@ -1,0 +1,7 @@
+{% extends 'todolist/index.html' %}
+
+{% block tasks %}
+    {% for task in tasks %}
+        {{ task }}
+    {% endfor %}
+{% endblock %}
