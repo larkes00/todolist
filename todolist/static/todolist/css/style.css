@@ -8,11 +8,15 @@ header > ul {
     padding: 0;
 }
 
-header > ul > li:hover {
-    background-color: #fff8ed;
-}
-
 header > ul > li > a {
     text-decoration: none;
     color: #000000;
+}
+
+.login-form-container {
+    text-align: center;
+}
+
+.register-form-container {
+    text-align: center;
 }
