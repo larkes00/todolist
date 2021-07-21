@@ -105,6 +105,11 @@ class UpdateTask(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("home")
 
 
+class ShowProfile(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = "todolist/profile_info.html"
+
+
 class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = "todolist/register.html"

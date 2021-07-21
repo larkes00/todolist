@@ -1,0 +1,13 @@
+{% extends 'todolist/base.html' %}
+{% block content %}
+    <div class="profile-main-container">
+        <div class="profile-image">
+            <img src="{{ object.userprofile.avatar.url }}" width="100px" height="100px">
+        </div>
+        <div class="profile-info">
+            Login: {{ object.username }}<br>
+            First name: {{ object.first_name }}<br>
+            Last name: {{ object.last_name }}<br>
+        </div>
+    </div>
+{% endblock %}

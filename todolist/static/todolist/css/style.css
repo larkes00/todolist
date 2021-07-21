@@ -26,3 +26,11 @@ header > ul > li > a {
     padding: 10px;
     flex: 0 0 33vw;
 }
+
+.profile-main-container {
+    display: flex;
+}
+
+.profile-info {
+    padding: 5px;
+}
