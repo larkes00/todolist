@@ -1,3 +1,4 @@
+from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
@@ -43,3 +44,4 @@ class RegisterUserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "login-form"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "login-form"}))
+    captcha = CaptchaField()
